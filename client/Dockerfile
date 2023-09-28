@@ -15,7 +15,7 @@ COPY . .
 
 
 # Expose the port your frontend application will run on (if applicable)
-EXPOSE 80
+EXPOSE 8000
 
 # Define the command to start your frontend application (adjust as needed)
 CMD ["npm", "start"]
