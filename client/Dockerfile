@@ -1,29 +1,20 @@
 # Use an official Node.js runtime as the base image
-FROM node:14 as build-stage
+FROM node:16.14-alpine
 
-# Create and set the working directory inside the container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Copy the package.json and package-lock.json (if present)
 COPY package*.json ./
 
-# Install application dependencies
+# Install the project dependencies
 RUN npm install
 
-# Copy the rest of your frontend application's source code to the working directory
+# Copy the application code to the container
 COPY . .
 
-# Build your frontend application (replace 'build' with the actual build script or command)
-RUN npm run build
-
-# Use a lightweight web server image for serving the application
-FROM nginx:alpine
-
-# Copy the built frontend files from the previous build stage
-COPY --from=build-stage /app/build /usr/share/nginx/html
-
-# Expose the default port used by the NGINX web server (usually 80)
+# Expose the port your Node.js application will run on
 EXPOSE 80
 
-# Start the NGINX web server
-CMD ["nginx", "-g", "daemon off;"]
+# Define the command to start your Node.js application
+CMD ["npm", "start"]
