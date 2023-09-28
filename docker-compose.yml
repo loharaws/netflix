@@ -1,0 +1,19 @@
+version: '3'
+services:
+  admin-panel:
+    image: admin-frontend  # Custom image name for the admin panel
+    build:
+      context: ./admin
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+
+  client-panel:
+    image: client-frontend  # Custom image name for the client panel
+    build:
+      context: ./client
+    ports:
+      - "8000:80"
+    environment:
+      - NODE_ENV=production
